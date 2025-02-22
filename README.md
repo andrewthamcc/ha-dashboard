@@ -1,0 +1,1 @@
+# React Dashboard for Home Assistant
