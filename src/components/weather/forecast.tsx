@@ -1,16 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
-import { getWeather, weatherKeys } from '../../api/weather'
+import { getForecast, weatherKeys } from '@api/weather'
 
 export const Forecast = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: weatherKeys.weather(),
-    queryFn: getWeather,
-    refetchInterval: 15 * 60 * 1000,
+    queryKey: weatherKeys.forecast(6),
+    queryFn: () => getForecast(6),
+    refetchInterval: 60 * 60 * 1000,
   })
 
   if (isLoading) {
     return (
-      <div className="flex animate-pulse items-center gap-3" role="status">
+      <div
+        className="flex animate-pulse items-center justify-center gap-6"
+        role="status"
+      >
+        <div className="h-20 w-15 rounded-xs bg-gray-500" />
+        <div className="h-20 w-15 rounded-xs bg-gray-500" />
         <div className="h-20 w-15 rounded-xs bg-gray-500" />
         <div className="h-20 w-15 rounded-xs bg-gray-500" />
         <div className="h-20 w-15 rounded-xs bg-gray-500" />
@@ -26,7 +31,7 @@ export const Forecast = () => {
   const nextThreeDays = data.forecast.forecastday.slice(1)
 
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-grow items-center justify-center gap-6">
       {nextThreeDays.map((day) => {
         return (
           <div
@@ -42,9 +47,9 @@ export const Forecast = () => {
             <img
               src={day.day.condition.icon}
               alt={day.day.condition.text}
-              className="mx-auto block w-10"
+              className="mx-auto block w-14"
             />
-            <p>{day.day.avgtemp_c}°C</p>
+            <p className="text-white/80">{day.day.avgtemp_c}°C</p>
           </div>
         )
       })}

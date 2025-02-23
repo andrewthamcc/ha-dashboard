@@ -4,7 +4,7 @@ interface WeatherCondition {
   code: number
 }
 
-interface WeatherData {
+export interface WeatherData {
   last_updated_epoch: number
   last_updated: string
   temp_c: number
@@ -73,7 +73,7 @@ interface ForecastDay {
   }
 }
 
-export interface WeatherApiResponse {
+export interface Forecast {
   location: {
     name: string
     region: string
@@ -86,4 +86,15 @@ export interface WeatherApiResponse {
   }
   current: WeatherData
   forecast: { forecastday: ForecastDay[] }
+}
+
+export interface AstronomyResponse {
+  is_moon_up: number
+  is_sun_up: number
+  moon_illumination: number
+  moon_phase: string
+  moonrise: string
+  moonset: string
+  sunrise: string
+  sunset: string
 }
