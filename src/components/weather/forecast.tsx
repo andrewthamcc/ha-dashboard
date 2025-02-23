@@ -1,0 +1,53 @@
+import { useQuery } from '@tanstack/react-query'
+import { getWeather, weatherKeys } from '../../api/weather'
+
+export const Forecast = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: weatherKeys.weather(),
+    queryFn: getWeather,
+    refetchInterval: 15 * 60 * 1000,
+  })
+
+  if (isLoading) {
+    return (
+      <div className="flex animate-pulse items-center gap-3" role="status">
+        <div className="h-20 w-15 rounded-xs bg-gray-500" />
+        <div className="h-20 w-15 rounded-xs bg-gray-500" />
+        <div className="h-20 w-15 rounded-xs bg-gray-500" />
+      </div>
+    )
+  }
+
+  if (error || !data) {
+    console.error(error)
+    return null
+  }
+
+  const nextThreeDays = data.forecast.forecastday.slice(1)
+
+  return (
+    <div className="flex items-center justify-center gap-6">
+      {nextThreeDays.map((day) => {
+        return (
+          <div
+            key={day.date}
+            className="flex flex-col justify-center text-center"
+          >
+            <p className="uppercase">
+              {new Date(`${day.date}T00:00:00Z`).toLocaleDateString('en-CA', {
+                weekday: 'short',
+                timeZone: 'UTC',
+              })}
+            </p>
+            <img
+              src={day.day.condition.icon}
+              alt={day.day.condition.text}
+              className="mx-auto block w-10"
+            />
+            <p>{day.day.avgtemp_c}°C</p>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
