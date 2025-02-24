@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { CurrentTemp } from '@components/weather/current-temp'
 
 const LABEL_DAYS: Record<number, string> = {
   0: 'Sunday',
@@ -63,9 +64,13 @@ export const Clock = () => {
   }, [])
 
   return (
-    <div className="flex flex-col gap-1">
-      <h3 className="text-5xl">{time}</h3>
-      <h2 className="text-4xl">{date}</h2>
+    <div className="flex gap-6">
+      <div className="flex flex-col gap-1">
+        <h3 className="text-6xl">{time}</h3>
+        <h2 className="text-3xl">{date}</h2>
+      </div>
+
+      <CurrentTemp />
     </div>
   )
 }

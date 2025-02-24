@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getNextBus, ttcKeys } from '@api/ttc.ts'
+import { getNextBus, ttcKeys } from '@api/ttc'
 
 export const Ttc = () => {
   const { data, isLoading, error } = useQuery({
@@ -24,7 +24,21 @@ export const Ttc = () => {
   }
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="flex flex-col gap-3">
+      <div className="flex items-start gap-3">
+        <h2 className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f8c300] p-2 text-black">
+          1
+        </h2>
+        <p>Normal Service</p>
+      </div>
+
+      <div className="flex items-start gap-3">
+        <h2 className="flex h-8 w-8 items-center justify-center rounded-full bg-[#00923f] p-2">
+          2
+        </h2>
+        <p>Normal Service</p>
+      </div>
+
       <div className="flex items-start gap-3">
         <h2 className="rounded-xs bg-[#da251d] px-2 py-0.5 text-white">62</h2>
         <div className="flex flex-col">
@@ -50,18 +64,6 @@ export const Ttc = () => {
             )
           })}
         </div>
-      </div>
-
-      <div className="flex items-start">
-        <h2 className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f8c300] p-2 text-black">
-          1
-        </h2>
-      </div>
-
-      <div className="flex items-start">
-        <h2 className="flex h-8 w-8 items-center justify-center rounded-full bg-[#00923f] p-2">
-          2
-        </h2>
       </div>
     </div>
   )

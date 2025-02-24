@@ -4,7 +4,7 @@ import { getForecast, weatherKeys } from '@api/weather'
 export const Forecast = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: weatherKeys.forecast(6),
-    queryFn: () => getForecast(6),
+    queryFn: () => getForecast(4),
     refetchInterval: 60 * 60 * 1000,
   })
 

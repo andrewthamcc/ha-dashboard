@@ -33,14 +33,22 @@ export const Weather = () => {
 
   if (data.some(({ isLoading }) => isLoading))
     return (
-      <div className="flex animate-pulse items-center gap-3" role="status">
-        <div className="h-14 w-14 rounded-full bg-gray-500" />
-        <div className="h-12 w-15 rounded-xs bg-gray-500" />
-        <div className="flex flex-col gap-1">
-          <div className="h-4 w-20 rounded-xs bg-gray-500" />
+      <div
+        className="flex animate-pulse items-center justify-center gap-3"
+        role="status"
+      >
+        <div className="flex flex-col gap-2">
+          <div className="h-4 w-30 rounded-xs bg-gray-500" />
+          <div className="h-3 w-24 rounded-xs bg-gray-500" />
+          <div className="h-3 w-20 rounded-xs bg-gray-500" />
+          <div className="h-3 w-22 rounded-xs bg-gray-500" />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <div className="h-3 w-24 rounded-xs bg-gray-500" />
           <div className="h-3 w-16 rounded-xs bg-gray-500" />
           <div className="h-3 w-22 rounded-xs bg-gray-500" />
-          <div className="h-3 w-16 rounded-xs bg-gray-500" />
+          <div className="h-3 w-18 rounded-xs bg-gray-500" />
         </div>
       </div>
     )
@@ -59,43 +67,33 @@ export const Weather = () => {
   const isSunUp = Boolean(astronomy?.is_sun_up)
 
   return (
-    <div className="flex items-center gap-3">
-      <img
-        className="h-20 w-20"
-        src={current?.condition.icon}
-        alt={current?.condition.text}
-      />
+    <div className="flex items-center justify-center gap-6">
+      <div className="flex flex-col gap-1 text-sm">
+        <p className="text-lg">{current?.condition.text}</p>
+        <p className="text-white/80">Feels like: {current?.feelslike_c}°C</p>
+        <p className="text-white/80">
+          H: {forecast?.day.maxtemp_c}°C L: {forecast?.day.mintemp_c}°C
+        </p>
 
-      <div className="flex items-center gap-6">
-        <p className="text-5xl">{current?.temp_c}°C</p>
-
-        <div className="flex flex-col text-sm">
-          <p className="text-lg">{current?.condition.text}</p>
-          <p className="text-white/80">Feels like: {current?.feelslike_c}°C</p>
-          <p className="text-white/80">
-            H: {forecast?.day.maxtemp_c}°C L: {forecast?.day.mintemp_c}°C
-          </p>
-
-          <p className="text-sm text-white/80">
-            {isSunUp ? astronomy?.sunset : astronomy?.sunrise}
-            <span>
-              {isSunUp ? (
-                <Sunset className="inline h-4" />
-              ) : (
-                <Sunrise className="inline h-4" />
-              )}
-            </span>
-          </p>
-        </div>
+        <p className="text-sm text-white/80">
+          {isSunUp ? astronomy?.sunset : astronomy?.sunrise}
+          <span>
+            {isSunUp ? (
+              <Sunset className="inline h-4" />
+            ) : (
+              <Sunrise className="inline h-4" />
+            )}
+          </span>
+        </p>
       </div>
 
-      <div className="text-white/80">
+      <div className="flex flex-col gap-1 text-white/80">
         <div className="flex flex-col justify-center">
           <p>
             <Wind className="inline h-4" />
             {current?.wind_kph} km/h {current?.wind_dir}
           </p>
-          <p className="text-xs ml-6">Gust {current?.gust_kph} km/h</p>
+          <p className="ml-6 text-xs">Gust {current?.gust_kph} km/h</p>
         </div>
 
         <p>
